@@ -1,0 +1,72 @@
+name: UI regression
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ui-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality:
+    name: Lint, secrets, and dependency audit
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+      - name: Install dependencies
+        run: python -m pip install -r requirements.txt
+      - name: Ruff
+        run: |
+          python -m ruff check .
+          python -m ruff format --check .
+      - name: Secret scan
+        run: python scripts/secret_scan.py
+      - name: Dependency audit
+        run: python -m pip_audit -r requirements.txt
+
+  ui:
+    name: UI tests (${{ matrix.browser }})
+    needs: quality
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chromium, firefox, webkit]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+      - name: Install dependencies
+        run: python -m pip install -r requirements.txt
+      - name: Install browser
+        run: python -m playwright install --with-deps ${{ matrix.browser }}
+      - name: Run regression
+        env:
+          RECORD_VIDEO: "0"
+        run: >
+          python -m pytest -n auto
+          --browser ${{ matrix.browser }}
+          --env local
+      - name: Upload reports and failure artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ui-${{ matrix.browser }}-${{ github.run_id }}
+          if-no-files-found: ignore
+          path: |
+            reports/
+            artifacts/screenshots/
+            artifacts/traces/
+            logs/framework.log

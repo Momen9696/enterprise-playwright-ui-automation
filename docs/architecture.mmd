@@ -1,0 +1,15 @@
+flowchart TD
+    cli["Pytest CLI: env, browser, headed, base URL, video"] --> settings["Environment YAML"]
+    cli --> fixtures["Browser, context, and page fixtures"]
+    settings --> fixtures
+    tests["UI, API, and unit tests"] --> pages["Page objects"]
+    tests --> data["JSON cases and Faker"]
+    tests --> api["API client"]
+    fixtures --> tests
+    pages --> actions["UI actions and waits"]
+    actions --> browsers["Chromium, Firefox, or WebKit"]
+    api --> app["HarborDesk demo app"]
+    browsers --> app
+    fixtures --> artifacts["Screenshot, trace, and video on failure"]
+    tests --> reports["pytest-html and Allure"]
+    ci["GitHub Actions"] --> cli
