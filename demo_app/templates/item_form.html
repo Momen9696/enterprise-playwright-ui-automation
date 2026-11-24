@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}{{ heading }} · HarborDesk{% endblock %}
+{% block content %}
+<h1 data-testid="item-heading">{{ heading }}</h1>
+{% if errors.form %}
+<p class="error" data-testid="error-form">{{ errors.form }}</p>
+{% endif %}
+<form method="post" action="{{ action }}" data-testid="item-form" novalidate>
+  <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+  <label for="title">Title</label>
+  <input id="title" name="title" type="text" value="{{ values.title }}" data-testid="item-title">
+  {% if errors.title %}<p class="error" data-testid="error-title">{{ errors.title }}</p>{% endif %}
+  <label for="description">Description</label>
+  <textarea id="description" name="description" rows="4" data-testid="item-description">{{ values.description }}</textarea>
+  {% if errors.description %}<p class="error" data-testid="error-description">{{ errors.description }}</p>{% endif %}
+  <label for="status">Status</label>
+  <select id="status" name="status" data-testid="item-status">
+    {% for value in statuses %}
+    <option value="{{ value }}" {% if value == values.status %}selected{% endif %}>{{ status_labels[value] }}</option>
+    {% endfor %}
+  </select>
+  {% if errors.status %}<p class="error" data-testid="error-status">{{ errors.status }}</p>{% endif %}
+  <label for="priority">Priority</label>
+  <select id="priority" name="priority" data-testid="item-priority">
+    {% for value in priorities %}
+    <option value="{{ value }}" {% if value == values.priority %}selected{% endif %}>{{ priority_labels[value] }}</option>
+    {% endfor %}
+  </select>
+  {% if errors.priority %}<p class="error" data-testid="error-priority">{{ errors.priority }}</p>{% endif %}
+  <button type="submit" data-testid="save-item">{{ submit_label }}</button>
+</form>
+{% if item %}
+<form method="post" action="/items/{{ item.id }}/delete" class="danger-form">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+  <button type="submit" data-testid="delete-item">Delete item</button>
+</form>
+{% endif %}
+<p><a href="/items" data-testid="back-to-items">Back to items</a></p>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Users · HarborDesk{% endblock %}
+{% block content %}
+<h1 data-testid="admin-heading">Users</h1>
+<p class="lede">Admin accounts can review every registered user.</p>
+<table data-testid="users-table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Role</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for person in people %}
+    <tr data-testid="user-row">
+      <td>{{ person.name }}</td>
+      <td data-testid="user-email">{{ person.email }}</td>
+      <td data-testid="user-role">{{ person.role }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

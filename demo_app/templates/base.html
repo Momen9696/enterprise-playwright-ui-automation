@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>{% block title %}HarborDesk{% endblock %}</title>
+  <link rel="stylesheet" href="/static/app.css">
+</head>
+<body>
+  {% if user %}
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="/dashboard" data-testid="brand">HarborDesk</a>
+      <p class="brand-note">Team work desk</p>
+      <nav class="nav" aria-label="Primary">
+        <a href="/dashboard" data-testid="nav-dashboard">Dashboard</a>
+        <a href="/items" data-testid="nav-items">Work items</a>
+        <a href="/profile" data-testid="nav-profile">Profile</a>
+        {% if user.role == "admin" %}
+        <a href="/admin/users" data-testid="nav-admin">Users</a>
+        {% endif %}
+      </nav>
+      <form method="post" action="/logout" class="logout-form">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+        <button type="submit" data-testid="logout">Log out</button>
+      </form>
+    </aside>
+    <div class="workspace">
+      <header class="topbar">
+        <span data-testid="signed-in-email">{{ user.email }}</span>
+        <span class="role" data-testid="signed-in-role">{{ user.role }}</span>
+      </header>
+      <main class="content">
+        {% if notice %}
+        <p class="notice" data-testid="notice" role="status">{{ notice }}</p>
+        {% endif %}
+        {% block content %}{% endblock %}
+      </main>
+    </div>
+  </div>
+  {% else %}
+  <main class="auth-shell">
+    <section class="auth-card">
+      <p class="eyebrow">HarborDesk</p>
+      {% if notice %}
+      <p class="notice" data-testid="notice" role="status">{{ notice }}</p>
+      {% endif %}
+      {% block auth %}{% endblock %}
+      <p class="fine-print">Synthetic demo data. Nothing here is a real account.</p>
+    </section>
+  </main>
+  {% endif %}
+</body>
+</html>

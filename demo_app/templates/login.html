@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Sign in · HarborDesk{% endblock %}
+{% block auth %}
+<h1 data-testid="login-heading">Sign in</h1>
+<p class="lede">Use a demo account to open the work desk.</p>
+{% if errors.form %}
+<p class="error" data-testid="error-form">{{ errors.form }}</p>
+{% endif %}
+<form method="post" action="/login" data-testid="login-form" novalidate>
+  <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+  <label for="email">Email</label>
+  <input id="email" name="email" type="email" autocomplete="username" value="{{ email_value|default('') }}" data-testid="login-email">
+  {% if errors.email %}<p class="error" data-testid="error-email">{{ errors.email }}</p>{% endif %}
+  <label for="password">Password</label>
+  <input id="password" name="password" type="password" autocomplete="current-password" data-testid="login-password">
+  {% if errors.password %}<p class="error" data-testid="error-password">{{ errors.password }}</p>{% endif %}
+  <button type="submit" data-testid="login-submit">Sign in</button>
+</form>
+<p class="switch">Need an account? <a href="/register" data-testid="link-register">Create one</a></p>
+{% endblock %}

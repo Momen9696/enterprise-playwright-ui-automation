@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block title %}Access denied · HarborDesk{% endblock %}
+{% block content %}
+<h1 data-testid="forbidden">{{ message }}</h1>
+<p class="lede">Your role does not include this action.</p>
+<p><a href="/dashboard" data-testid="forbidden-home">Return to the dashboard</a></p>
+{% endblock %}

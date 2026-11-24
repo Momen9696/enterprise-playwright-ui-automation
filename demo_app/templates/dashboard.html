@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Dashboard · HarborDesk{% endblock %}
+{% block content %}
+<h1 data-testid="dashboard-heading">Dashboard</h1>
+<p class="lede">Welcome, <span data-testid="welcome-name">{{ user.name }}</span>.</p>
+<section class="stats" aria-label="Work item counts">
+  <article class="stat">
+    <p class="stat-label">Open</p>
+    <p class="stat-value" data-testid="stat-open">{{ counts.open }}</p>
+  </article>
+  <article class="stat">
+    <p class="stat-label">In progress</p>
+    <p class="stat-value" data-testid="stat-in-progress">{{ counts.in_progress }}</p>
+  </article>
+  <article class="stat">
+    <p class="stat-label">Done</p>
+    <p class="stat-value" data-testid="stat-done">{{ counts.done }}</p>
+  </article>
+</section>
+<section>
+  <h2>Recent items</h2>
+  {% if recent %}
+  <ul class="recent" data-testid="recent-items">
+    {% for item in recent %}
+    <li data-testid="recent-item">{{ item.title }}</li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p data-testid="empty-state">No work items yet.</p>
+  {% endif %}
+</section>
+{% endblock %}

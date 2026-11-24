@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Create account · HarborDesk{% endblock %}
+{% block auth %}
+<h1 data-testid="register-heading">Create account</h1>
+<p class="lede">Registration creates a member account with synthetic data.</p>
+{% if errors.form %}
+<p class="error" data-testid="error-form">{{ errors.form }}</p>
+{% endif %}
+<form method="post" action="/register" data-testid="register-form" novalidate>
+  <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+  <label for="name">Name</label>
+  <input id="name" name="name" type="text" value="{{ values.name }}" data-testid="reg-name">
+  {% if errors.name %}<p class="error" data-testid="error-name">{{ errors.name }}</p>{% endif %}
+  <label for="email">Email</label>
+  <input id="email" name="email" type="email" autocomplete="username" value="{{ values.email }}" data-testid="reg-email">
+  {% if errors.email %}<p class="error" data-testid="error-email">{{ errors.email }}</p>{% endif %}
+  <label for="password">Password</label>
+  <input id="password" name="password" type="password" autocomplete="new-password" data-testid="reg-password">
+  {% if errors.password %}<p class="error" data-testid="error-password">{{ errors.password }}</p>{% endif %}
+  <label for="confirm">Confirm password</label>
+  <input id="confirm" name="confirm" type="password" autocomplete="new-password" data-testid="reg-confirm">
+  {% if errors.confirm %}<p class="error" data-testid="error-confirm">{{ errors.confirm }}</p>{% endif %}
+  <button type="submit" data-testid="register-submit">Create account</button>
+</form>
+<p class="switch">Already registered? <a href="/login" data-testid="link-login">Sign in</a></p>
+{% endblock %}
