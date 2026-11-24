@@ -1,0 +1,32 @@
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+addopts = "-ra --strict-markers --tb=short -m \"not evidence\" --html=reports/pytest.html --self-contained-html --alluredir=reports/allure-results"
+markers = [
+    "smoke: critical path that should stay green on every change",
+    "regression: full UI regression",
+    "auth: sign-in, registration, and sessions",
+    "crud: create, update, and delete",
+    "negative: invalid input and rejected actions",
+    "api: JSON API checks",
+    "unit: tests that do not launch a browser",
+    "ui: browser tests",
+    "evidence: intentional failure used to prove screenshots, traces, and video",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+src = ["demo_app", "framework", "pages", "tests", "scripts"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
+[tool.ruff.lint.per-file-ignores]
+"demo_app/main.py" = ["B008"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["demo_app", "framework", "pages", "tests"]
+
+[tool.ruff.format]
+quote-style = "double"

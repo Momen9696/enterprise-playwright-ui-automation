@@ -1,0 +1,27 @@
+[
+  {
+    "case": "unknown user",
+    "email": "nobody@demo.local",
+    "password": "WrongPass1",
+    "errors": {
+      "form": "Email or password is incorrect."
+    }
+  },
+  {
+    "case": "wrong password",
+    "email": "admin@demo.local",
+    "password": "WrongPass1",
+    "errors": {
+      "form": "Email or password is incorrect."
+    }
+  },
+  {
+    "case": "blank fields",
+    "email": "",
+    "password": "",
+    "errors": {
+      "email": "Email is required.",
+      "password": "Password is required."
+    }
+  }
+]

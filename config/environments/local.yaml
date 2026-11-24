@@ -1,0 +1,21 @@
+timeout_ms: 10000
+navigation_timeout_ms: 15000
+headless: true
+browser: chromium
+retries: 0
+record_video: false
+tracing: true
+base_url: null
+users:
+  admin:
+    email: admin@demo.local
+    password: AdminPass123!
+    role: admin
+  member:
+    email: member@demo.local
+    password: MemberPass123!
+    role: member
+  pager:
+    email: pager@demo.local
+    password: PagerPass123!
+    role: member

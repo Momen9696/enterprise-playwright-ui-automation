@@ -1,0 +1,82 @@
+[
+  {
+    "case": "invalid email",
+    "name": "Test User",
+    "email": "not-an-email",
+    "password": "Validpass1",
+    "confirm": "Validpass1",
+    "errors": {
+      "email": "Enter a valid email address."
+    }
+  },
+  {
+    "case": "short password",
+    "name": "Test User",
+    "email": "short.password@demo.local",
+    "password": "Abc123",
+    "confirm": "Abc123",
+    "errors": {
+      "password": "Password must be at least 8 characters and include a letter and a digit."
+    }
+  },
+  {
+    "case": "password without a digit",
+    "name": "Test User",
+    "email": "letters.only@demo.local",
+    "password": "Validpassword",
+    "confirm": "Validpassword",
+    "errors": {
+      "password": "Password must be at least 8 characters and include a letter and a digit."
+    }
+  },
+  {
+    "case": "password without a letter",
+    "name": "Test User",
+    "email": "digits.only@demo.local",
+    "password": "12345678",
+    "confirm": "12345678",
+    "errors": {
+      "password": "Password must be at least 8 characters and include a letter and a digit."
+    }
+  },
+  {
+    "case": "password mismatch",
+    "name": "Test User",
+    "email": "mismatch@demo.local",
+    "password": "Validpass1",
+    "confirm": "Validpass2",
+    "errors": {
+      "confirm": "Passwords do not match."
+    }
+  },
+  {
+    "case": "blank name",
+    "name": "   ",
+    "email": "blank.name@demo.local",
+    "password": "Validpass1",
+    "confirm": "Validpass1",
+    "errors": {
+      "name": "Name is required."
+    }
+  },
+  {
+    "case": "duplicate email",
+    "name": "Another Admin",
+    "email": "admin@demo.local",
+    "password": "Validpass1",
+    "confirm": "Validpass1",
+    "errors": {
+      "email": "An account with this email already exists."
+    }
+  },
+  {
+    "case": "duplicate email with different case",
+    "name": "Another Admin",
+    "email": "Admin@Demo.local",
+    "password": "Validpass1",
+    "confirm": "Validpass1",
+    "errors": {
+      "email": "An account with this email already exists."
+    }
+  }
+]

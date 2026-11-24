@@ -1,0 +1,65 @@
+[
+  {
+    "case": "exact title",
+    "q": "Pager Item 01",
+    "status": "",
+    "priority": "",
+    "count": 1
+  },
+  {
+    "case": "description match",
+    "q": "Seeded work item 12",
+    "status": "",
+    "priority": "",
+    "count": 1
+  },
+  {
+    "case": "status done",
+    "q": "",
+    "status": "done",
+    "priority": "",
+    "count": 4
+  },
+  {
+    "case": "priority high",
+    "q": "",
+    "status": "",
+    "priority": "high",
+    "count": 4
+  },
+  {
+    "case": "title and status together",
+    "q": "Pager Item",
+    "status": "open",
+    "priority": "",
+    "count": 4
+  },
+  {
+    "case": "no match",
+    "q": "no-such-item-xyz",
+    "status": "",
+    "priority": "",
+    "count": 0
+  },
+  {
+    "case": "sql metacharacters",
+    "q": "' OR 1=1 --",
+    "status": "",
+    "priority": "",
+    "count": 0
+  },
+  {
+    "case": "percent wildcard",
+    "q": "%",
+    "status": "",
+    "priority": "",
+    "count": 0
+  },
+  {
+    "case": "underscore wildcard",
+    "q": "_",
+    "status": "",
+    "priority": "",
+    "count": 0
+  }
+]
